@@ -1,10 +1,16 @@
 '''
+The program generates an output file containing the following: 
+Count of matches for each tag, count of port and protocol pairings
+
+The program should read a csv file and a plain text file.
+The csv file contains the flow log data.
+The plain text file contains the mappings of the port and protocol to the tag.
+
 The program should generate an output file containing the following: 
-Count of matches for each tag, sample o/p shown below 
+Count of matches for each tag, count of port and protocol pairings
 
 '''
 
-import pandas as pd
 import socket
 from collections import defaultdict
 
@@ -33,7 +39,7 @@ def get_mappings(mappings_file):
     for mapping in mappings:
         mapping = mapping.strip()
         mapping = mapping.split(',')
-        mappings_dict[(mapping[0], mapping[1])] = mapping[2]
+        mappings_dict[(mapping[0], mapping[1].lower())] = mapping[2]
 
 def find_matches(flow_log_file):
     with open(flow_log_file, 'r') as file:
